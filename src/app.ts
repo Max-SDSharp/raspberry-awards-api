@@ -5,6 +5,9 @@ import helmet from 'helmet'
 import 'express-async-errors'
 
 import awardsRoutes from './routes/awards.routes'
+import { initializeDatabase } from './services/sqlite.service'
+
+initializeDatabase()
 
 const app = express()
 
