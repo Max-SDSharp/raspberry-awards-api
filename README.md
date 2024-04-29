@@ -1,7 +1,7 @@
 # Movie Awards Intervals API
 
 ## Description
-This API provides endpoints to retrieve information about movie producers with the longest and shortest intervals between consecutive awards.
+This API provides endpoints to retrieve information about movie producers with the longest and shortest intervals between consecutive awards. The system utilizes an in-memory database powered by SQLite, offering lightweight and efficient data storage directly within the application.
 
 ## Installation
 
