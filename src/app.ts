@@ -5,6 +5,7 @@ import helmet from 'helmet'
 import 'express-async-errors'
 
 import awardsRoutes from './routes/awards.routes'
+import { initializeDatabase } from './services/sqlite.service'
 
 const app = express()
 
@@ -17,6 +18,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use(cors())
+
+initializeDatabase()
 
 app.use('/awards', awardsRoutes)
 
