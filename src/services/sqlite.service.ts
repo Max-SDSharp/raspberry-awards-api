@@ -10,9 +10,9 @@ export async function initializeDatabase(): Promise<void> {
 
   db = new sqlite3.Database('./src/data/movielist.db')
 
-  // Create movies table if it doesn't exist
+  // Create movies table
   db.exec(`
-    CREATE TABLE IF NOT EXISTS movies (
+    CREATE TABLE movies (
       id INTEGER PRIMARY KEY,
       year INT,
       title TEXT,
@@ -30,8 +30,6 @@ export function connectToDatabase(): sqlite3.Database {
   db = new sqlite3.Database('./src/data/movielist.db', (err) => {
     if (err) {
       console.error('Error connecting to SQLite database:', err)
-    } else {
-      console.log('Connected to SQLite database')
     }
   })
 
@@ -41,7 +39,6 @@ export function connectToDatabase(): sqlite3.Database {
 export function deleteDatabaseFile(filePath: string): void {
   if (fs.existsSync(filePath)) {
     fs.unlinkSync(filePath)
-    console.log(`Database file ${filePath} deleted successfully`)
   }
 }
 
