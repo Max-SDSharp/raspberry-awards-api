@@ -58,29 +58,35 @@ export default function getExtremeIntervals(req: Request, res: Response): void {
 
       for (const intervals of intervalsMap.values()) {
         if (intervals.length > 0) {
-          const min = intervals.reduce((acc, cur) =>
-            acc.interval < cur.interval ? acc : cur,
+          const sortedIntervals = intervals.sort(
+            (a, b) => a.interval - b.interval,
           )
-          const max = intervals.reduce((acc, cur) =>
-            acc.interval > cur.interval ? acc : cur,
+          const min = sortedIntervals[0]
+          const max = sortedIntervals[sortedIntervals.length - 1]
+
+          const minProducers = intervals.filter(
+            (prod) => prod.interval === min.interval,
+          )
+          const maxProducers = intervals.filter(
+            (prod) => prod.interval === max.interval,
           )
 
           if (
             minInterval.length === 0 ||
             min.interval < minInterval[0].interval
           ) {
-            minInterval = [min]
+            minInterval = minProducers
           } else if (min.interval === minInterval[0].interval) {
-            minInterval.push(min)
+            minInterval.push(...minProducers)
           }
 
           if (
             maxInterval.length === 0 ||
             max.interval > maxInterval[0].interval
           ) {
-            maxInterval = [max]
+            maxInterval = maxProducers
           } else if (max.interval === maxInterval[0].interval) {
-            maxInterval.push(max)
+            maxInterval.push(...maxProducers)
           }
         }
       }
